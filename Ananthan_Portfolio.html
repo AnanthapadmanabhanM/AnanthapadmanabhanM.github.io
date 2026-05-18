@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ananthapadmanabhan Manoj — Robotics & AI Safety Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0b;
+    --surface: #111113;
+    --surface2: #18181b;
+    --border: rgba(255,255,255,0.07);
+    --border-mid: rgba(255,255,255,0.12);
+    --teal: #1fc99a;
+    --teal-dim: rgba(31,201,154,0.12);
+    --teal-glow: rgba(31,201,154,0.25);
+    --blue: #4fa3e8;
+    --blue-dim: rgba(79,163,232,0.1);
+    --amber: #e8a84f;
+    --amber-dim: rgba(232,168,79,0.1);
+    --text: #e8e6e1;
+    --text-muted: #8a8880;
+    --text-dim: #4a4846;
+    --serif: 'Playfair Display', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    padding: 1.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(20px);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--teal-glow) 0%, transparent 70%);
+    top: 10%; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--teal);
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-name-italic {
+    font-style: italic;
+    color: var(--teal);
+    display: block;
+    font-weight: 400;
+  }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.8rem;
+    margin-top: 0.8rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-desc strong { color: var(--text); font-weight: 500; }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 0.75rem 1.8rem;
+    background: var(--teal);
+    color: #0a0a0b;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: #2ee8b0; transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 0.75rem 1.8rem;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--border-mid);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .metrics-panel {
+    border: 1px solid var(--border-mid);
+    background: var(--surface);
+    padding: 2rem;
+    width: 340px;
+    position: relative;
+  }
+
+  .metrics-panel::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 2rem; right: 2rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--blue));
+  }
+
+  .metrics-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .metric-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 1px;
+  }
+
+  .metric-cell {
+    background: var(--surface);
+    padding: 1rem;
+  }
+
+  .metric-val {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .metric-lbl {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .hero-contact {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 4rem;
+    position: relative;
+  }
+
+  section:nth-child(even) { background: var(--surface); }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── RESEARCH / EXPERIENCE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.5rem; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 1.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem;
+    top: 0.35rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 8px var(--teal-glow);
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-org {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .timeline-body {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .timeline-body strong { color: var(--text); font-weight: 500; }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--border-mid);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .tag.teal { border-color: rgba(31,201,154,0.3); color: var(--teal); background: var(--teal-dim); }
+  .tag.blue  { border-color: rgba(79,163,232,0.3); color: var(--blue); background: var(--blue-dim); }
+
+  /* ── PUBLICATIONS ── */
+  .pub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .pub-card {
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    padding: 1.5rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+  }
+
+  .pub-card.visible { opacity: 1; transform: translateY(0); }
+  .pub-card:hover { border-color: var(--teal); }
+
+  .pub-status {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+  }
+
+  .pub-status.review { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(79,163,232,0.3); }
+  .pub-status.published { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(31,201,154,0.3); }
+
+  .pub-title {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .pub-venue {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .pub-doi {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--blue);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-block {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    background: var(--surface2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .skill-block.visible { opacity: 1; transform: translateY(0); }
+
+  .skill-block-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--teal);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-item::before {
+    content: '';
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .achieve-item {
+    background: var(--surface2);
+    padding: 1.5rem 2rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .achieve-item.visible { opacity: 1; transform: translateY(0); }
+
+  .achieve-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--teal);
+    opacity: 0.3;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 2.5rem;
+  }
+
+  .achieve-body {}
+
+  .achieve-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .achieve-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .edu-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    background: var(--surface2);
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .edu-card.visible { opacity: 1; transform: translateY(0); }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+  }
+
+  .edu-degree {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-school {
+    font-size: 0.82rem;
+    color: var(--teal);
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-period {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .edu-modules {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .edu-modules span {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
+
+  /* ── REFEREES ── */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .ref-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    background: var(--surface2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .ref-card.visible { opacity: 1; transform: translateY(0); }
+
+  .ref-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .ref-role-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    background: var(--teal-dim);
+    border: 1px solid rgba(31,201,154,0.2);
+    padding: 0.15rem 0.5rem;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+  }
+
+  .ref-title {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.15rem;
+    line-height: 1.4;
+  }
+
+  .ref-email {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--blue);
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-right {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .hero-eyebrow  { animation-delay: 0.1s; }
+  .hero-name     { animation-delay: 0.2s; }
+  .hero-title    { animation-delay: 0.3s; }
+  .hero-desc     { animation-delay: 0.4s; }
+  .hero-cta      { animation-delay: 0.5s; }
+
+  .metrics-panel {
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.4s forwards;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-right { justify-content: flex-start; }
+    .metrics-panel { width: 100%; }
+    section { padding: 4rem 1.5rem; }
+    .pub-grid, .skills-grid, .edu-grid, .ref-grid { grid-template-columns: 1fr; }
+    .achieve-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AM // Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">Robotics &amp; AI Safety Researcher</div>
+    <h1 class="hero-name">
+      Ananthapadmanabhan
+      <span class="hero-name-italic">Manoj</span>
+    </h1>
+    <div class="hero-title">MSc Robotics · UK National Robotarium · Heriot-Watt University · Edinburgh</div>
+    <p class="hero-desc">
+      Designing <strong>formally verified safety architectures</strong> for LLM-driven embodied agents.
+      Two IEEE first-author publications. Researcher at the intersection of
+      <strong>AI safety, formal verification, and multimodal robotics</strong>.
+      Seeking PhD and research engineer roles in AI safety and embodied intelligence.
+    </p>
+    <div class="hero-cta">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="mailto:iamananthan23@gmail.com" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="metrics-panel">
+      <div class="metrics-label">// System Performance — TRIDENT</div>
+      <div class="metric-row">
+        <div class="metric-cell">
+          <div class="metric-val">99.3%</div>
+          <div class="metric-lbl">Safety rate</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">F1=0.995</div>
+          <div class="metric-lbl">Benchmark score</div>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-cell">
+          <div class="metric-val">0</div>
+          <div class="metric-lbl">False positives (450 tasks)</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">94.5%</div>
+          <div class="metric-lbl">Adversarial ASR reduction</div>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-cell">
+          <div class="metric-val">6,144</div>
+          <div class="metric-lbl">NuSMV verified states</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">2</div>
+          <div class="metric-lbl">IEEE first-author papers</div>
+        </div>
+      </div>
+      <div class="hero-contact">
+        <div class="contact-item"><div class="contact-dot"></div>iamananthan23@gmail.com</div>
+        <div class="contact-item"><div class="contact-dot"></div>github.com/AnanthapadmanabhanM</div>
+        <div class="contact-item"><div class="contact-dot"></div>Edinburgh, UK · Graduate Route (May 2026)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH EXPERIENCE -->
+<section id="research">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Research Experience</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">SEP 2025 — MAY 2026</div>
+      <div class="timeline-role">MSc Dissertation Researcher — TRIDENT Safety System</div>
+      <div class="timeline-org">UK National Robotarium · Heriot-Watt University · Supervisor: Prof. Oliver Lemon</div>
+      <div class="timeline-body">
+        Designed and implemented a <strong>Triple-Layer Defence-in-Depth (DiD) safety architecture</strong> for LLM-driven domestic robots, guarding the full perception → planning → execution stack.<br><br>
+        <strong>Layer 1 — Perception Guard:</strong> CLIP ViT-L/14 Mahalanobis OOD detection; reduced adversarial ASR from 58.3% → 3.2% across FGSM, PGD, patch and noise variants without attack-specific tuning.<br><br>
+        <strong>Layer 2 — Semantic Guard:</strong> NuSMV CTL formal verification of 47 domestic safety rules; 30/32 properties proved over a 6,144-state model — to our knowledge one of the first such verifications for LLM-driven domestic agents.<br><br>
+        <strong>Layer 3 — Reference Monitor:</strong> Robust adversarial defences against 11 Bi-Modal Adversarial Prompt (BAP) variants. Real-time: rule path 0.14 ms · CLIP path 7.8 ms — both within 500 ms action-cycle requirement.
+      </div>
+      <div class="tags">
+        <span class="tag teal">Python</span><span class="tag teal">PyTorch</span><span class="tag teal">CLIP ViT-L/14</span><span class="tag teal">Qwen2.5-VL-7B</span><span class="tag teal">NuSMV</span><span class="tag teal">AI2-THOR</span><span class="tag teal">ROS</span><span class="tag teal">A100 GPU</span>
+        <span class="tag blue">AI Safety</span><span class="tag blue">CTL/LTL</span><span class="tag blue">Adversarial ML</span><span class="tag blue">OOD Detection</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">JAN — DEC 2025</div>
+      <div class="timeline-role">Research — Robotic Response Speed &amp; Human Perception of AI</div>
+      <div class="timeline-org">Heriot-Watt University · IEEE ISTAS 2025 Publication</div>
+      <div class="timeline-body">
+        Empirically investigated how robotic <strong>response latency and anthropomorphic design cues</strong> shape human trust and perceived competence in HRI. Conducted user studies on de-anthropomorphisation effects, contributing evidence-based design guidelines for socially appropriate robot interaction. Published at IEEE ISTAS 2025.
+      </div>
+      <div class="tags">
+        <span class="tag teal">Human-Robot Interaction</span><span class="tag teal">User Studies</span><span class="tag blue">IEEE ISTAS 2025</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2022 — 2024</div>
+      <div class="timeline-role">ARRK — College Assistant Humanoid Robot</div>
+      <div class="timeline-org">BTech Major Project · IEEE ICCR 2024 · Govt. Engineering College Barton Hill</div>
+      <div class="timeline-body">
+        Led end-to-end development and <strong>live campus deployment</strong> of an AI humanoid integrating facial emotion recognition, NLP-based dialogue, and multimodal HRI. Achieved <strong>98.12% emotion recognition accuracy</strong> (CNN/VGG-16, FER-2013). Face-recognition attendance system operational from day one.
+      </div>
+      <div class="tags">
+        <span class="tag teal">Python</span><span class="tag teal">OpenCV</span><span class="tag teal">PyTorch</span><span class="tag teal">Rasa NLU</span><span class="tag teal">BERT</span><span class="tag teal">Jetson Nano</span><span class="tag teal">Arduino</span>
+        <span class="tag blue">IEEE ICCR 2024</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">APR — MAY 2023</div>
+      <div class="timeline-role">Research Intern — CDAC India</div>
+      <div class="timeline-org">Centre for Development of Advanced Computing · India</div>
+      <div class="timeline-body">
+        Designed a hardware home security system (fire &amp; theft detection) on the <strong>VEGA RISC-V Processor / Aries V2</strong> board. Completed applied ML training and hardware-software integration. <strong>Awarded Second Prize</strong> at institute showcase.
+      </div>
+      <div class="tags">
+        <span class="tag teal">RISC-V</span><span class="tag teal">Embedded Systems</span><span class="tag teal">Hardware Security</span><span class="tag blue">2nd Prize</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Publications</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="pub-grid">
+    <div class="pub-card">
+      <div class="pub-status review">Under Review</div>
+      <div class="pub-title">TRIDENT: A Triple-Layer Defence-in-Depth Safety Architecture for LLM-Driven Domestic Robots</div>
+      <div class="pub-venue">Conference on Neural Information Processing Systems (NeurIPS) 2026</div>
+      <div class="pub-venue" style="margin-top:0.2rem; font-size:0.72rem;">Ananthapadmanabhan M., Lemon O.</div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-status review">Under Review</div>
+      <div class="pub-title">TRIDENT: Runtime Safety Enforcement for LLM-Driven Domestic Robots via Defence-in-Depth</div>
+      <div class="pub-venue">Workshop on Socially Pertinent AI (SPAI) @ IJCAI-ECAI 2026 · Bremen, August 2026</div>
+      <div class="pub-venue" style="margin-top:0.2rem; font-size:0.72rem;">Ananthapadmanabhan M., Lemon O.</div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-status published">Published</div>
+      <div class="pub-title">ARRK: The College Assistant Humanoid Robot</div>
+      <div class="pub-venue">IEEE International Conference on Cognitive Robotics (ICCR) · Yokohama, 2024</div>
+      <div class="pub-venue" style="margin-top:0.2rem; font-size:0.72rem;">Ananthapadmanabhan M. et al.</div>
+      <div class="pub-doi">DOI: 10.1109/ICCR64365.2024.10927589</div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-status published">Published</div>
+      <div class="pub-title">The Role of Robotic Response Speed in the De-Anthropomorphization of AI Chatbots</div>
+      <div class="pub-venue">IEEE International Symposium on Technology and Society (ISTAS) 2025</div>
+      <div class="pub-venue" style="margin-top:0.2rem; font-size:0.72rem;">Ananthapadmanabhan M. and Abercrombie G.</div>
+      <div class="pub-doi">DOI: 10.1109/ISTAS65609.2025.11269646</div>
+    </div>
+  </div>
+</section>
+
+<!-- NOVEL CONTRIBUTIONS -->
+<section id="achievements">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Novel Contributions</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="achieve-grid">
+    <div class="achieve-item">
+      <div class="achieve-num">01</div>
+      <div class="achieve-body">
+        <div class="achieve-title">First Formal CTL Verification of LLM-Driven Domestic Robots</div>
+        <div class="achieve-desc">Applied NuSMV model checking to runtime safety verification — to our knowledge one of the first such verifications, proving 30/32 CTL properties over a 6,144-state model.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">02</div>
+      <div class="achieve-body">
+        <div class="achieve-title">Pareto-Dominant Safety Architecture</div>
+        <div class="achieve-desc">TRIDENT simultaneously achieves best safety rate (99.3%), precision (1.000), F1 (0.9952), and adversarial robustness — outperforming GPT-4o, Constitutional AI, and all rule-based baselines across every metric.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">03</div>
+      <div class="achieve-body">
+        <div class="achieve-title">Zero False Positives on 450-Task Benchmark</div>
+        <div class="achieve-desc">Precision = 1.000 maintained throughout evaluation, demonstrating that robust safety need not sacrifice task usability or throughput.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">04</div>
+      <div class="achieve-body">
+        <div class="achieve-title">94.5% Adversarial Attack Reduction</div>
+        <div class="achieve-desc">CLIP ViT-L/14 Mahalanobis OOD detector reduced ASR from 58.3% to 3.2% across 11 Bi-Modal Adversarial Prompt variants without attack-specific fine-tuning — a significant generalisation result.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">05</div>
+      <div class="achieve-body">
+        <div class="achieve-title">Real-Time Safety Within Domestic Robot Constraints</div>
+        <div class="achieve-desc">Rule-based path 0.14 ms (>3,500× margin) and full VLM path 7.8 ms — both well within the 500 ms domestic action-cycle requirement, enabling practical deployment.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">06</div>
+      <div class="achieve-body">
+        <div class="achieve-title">Novel BAP Benchmark Construction</div>
+        <div class="achieve-desc">Constructed and systematically evaluated a 450-task benchmark spanning 11 Bi-Modal Adversarial Prompt categories — FGSM, PGD, patch, and noise variants for multimodal robot safety evaluation.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">07</div>
+      <div class="achieve-body">
+        <div class="achieve-title">Human Trust &amp; Robot Anthropomorphism Study</div>
+        <div class="achieve-desc">Empirically demonstrated that robotic response speed is a key lever in managing anthropomorphisation of AI systems — IEEE ISTAS 2025 — contributing evidence-based HRI design guidelines.</div>
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-num">08</div>
+      <div class="achieve-body">
+        <div class="achieve-title">End-to-End Humanoid Robot Campus Deployment</div>
+        <div class="achieve-desc">Designed, built, and deployed ARRK — achieving 98.12% emotion recognition in a live environment with multimodal speech, vision, and NLP integration. Published IEEE ICCR 2024.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-block">
+      <div class="skill-block-title">// Languages</div>
+      <div class="skill-item">Python (Advanced)</div>
+      <div class="skill-item">C++</div>
+      <div class="skill-item">MATLAB</div>
+      <div class="skill-item">Arduino C</div>
+      <div class="skill-item">JavaScript</div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">// AI / ML</div>
+      <div class="skill-item">PyTorch · TensorFlow</div>
+      <div class="skill-item">CLIP ViT-L/14</div>
+      <div class="skill-item">Qwen2.5-VL-7B · LLaVA</div>
+      <div class="skill-item">CNN/VGG-16 · BERT</div>
+      <div class="skill-item">Rasa NLU · OpenCV</div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">// AI Safety &amp; Formal Methods</div>
+      <div class="skill-item">Defence-in-Depth Architecture</div>
+      <div class="skill-item">NuSMV Model Checking</div>
+      <div class="skill-item">CTL / LTL Specification</div>
+      <div class="skill-item">Adversarial ML (FGSM/PGD)</div>
+      <div class="skill-item">OOD Detection · Runtime Verification</div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">// Robotics &amp; Simulation</div>
+      <div class="skill-item">ROS / ROS2</div>
+      <div class="skill-item">AI2-THOR · Habitat</div>
+      <div class="skill-item">Gazebo · Webots</div>
+      <div class="skill-item">SLAM / Nav Stack</div>
+      <div class="skill-item">Visual Servoing · Kinematics</div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">// Embedded &amp; IoT</div>
+      <div class="skill-item">Jetson Nano · Arduino</div>
+      <div class="skill-item">Raspberry Pi · Micro:Bit</div>
+      <div class="skill-item">LoRa · MQTT</div>
+      <div class="skill-item">KiCAD PCB Design</div>
+      <div class="skill-item">VEGA RISC-V Processor</div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">// Tools &amp; Platforms</div>
+      <div class="skill-item">Git / GitHub · Linux</div>
+      <div class="skill-item">LaTeX / Overleaf</div>
+      <div class="skill-item">MATLAB/Simulink</div>
+      <div class="skill-item">Docker · AWS/GCP (basics)</div>
+      <div class="skill-item">Google Colab A100 GPU</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">MSc Robotics</div>
+      <div class="edu-school">Heriot-Watt University · UK National Robotarium · Edinburgh</div>
+      <div class="edu-period">JAN 2025 — MAY 2026 · Supervised by Prof. Oliver Lemon</div>
+      <div class="edu-modules">
+        <strong style="color:var(--text-muted); font-size:0.7rem; letter-spacing:0.1em; font-family:var(--mono);">KEY MODULES</strong><br>
+        Intelligent Robotics · Robotics Systems Science · Machine Vision · Robotic Mechanical Systems · Conversational Agents &amp; Spoken Language Processing · Internet of Things · Systems Thinking and Analysis · Research Methods and Project Planning
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">BTech in Electronics &amp; Communication Engineering</div>
+      <div class="edu-school">APJ Abdul Kalam Technological University (KTU) · Govt. Engineering College Barton Hill · Kerala, India</div>
+      <div class="edu-period">2019 — 2023</div>
+      <div class="edu-modules">
+        <strong style="color:var(--text-muted); font-size:0.7rem; letter-spacing:0.1em; font-family:var(--mono);">KEY MODULES</strong><br>
+        Robotics · Digital Signal Processing · Digital Image Processing · Control Systems · Signals &amp; Systems · VLSI Circuit Design · Microcontrollers &amp; Computer Architecture · Logic Circuit Design · Analog &amp; Digital Communication · Electromagnetics · Information Theory &amp; Coding · Wireless Communication · Optical Fiber Communication · Biomedical Engineering · Network Theory
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFEREES -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Referees</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-name">Prof. Oliver Lemon</div>
+      <div class="ref-role-tag">Dissertation Supervisor &amp; Co-author</div>
+      <div class="ref-title">Professor of AI &amp; Conversational Interaction</div>
+      <div class="ref-title">Academic Co-Lead, UK National Robotarium</div>
+      <div class="ref-title">Heriot-Watt University, Edinburgh, UK</div>
+      <a class="ref-email" href="mailto:O.Lemon@hw.ac.uk">O.Lemon@hw.ac.uk</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-name">Dr. Gavin Abercrombie</div>
+      <div class="ref-role-tag">Research Supervisor &amp; Co-author</div>
+      <div class="ref-title">Assistant Professor in Natural Language Processing</div>
+      <div class="ref-title">Heriot-Watt University, Edinburgh, UK</div>
+      <a class="ref-email" href="mailto:g.abercrombie@hw.ac.uk">g.abercrombie@hw.ac.uk</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-name">Dr. Marko Doko</div>
+      <div class="ref-role-tag">Formal Verification &amp; Second Reader</div>
+      <div class="ref-title">Assistant Professor</div>
+      <div class="ref-title">Heriot-Watt University, Edinburgh, UK</div>
+      <a class="ref-email" href="mailto:M.Doko@hw.ac.uk">M.Doko@hw.ac.uk</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">ANANTHAPADMANABHAN MANOJ · ROBOTICS &amp; AI SAFETY · EDINBURGH 2026</div>
+  <div class="footer-right">github.com/AnanthapadmanabhanM · iamananthan23@gmail.com</div>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.timeline-item, .pub-card, .skill-block, .achieve-item, .edu-card, .ref-card').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 80;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
